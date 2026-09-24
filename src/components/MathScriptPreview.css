@@ -1,0 +1,7 @@
+.c-math-script-preview {
+    --_preview-color: hsl(220 10% 5%);
+    --_preview-bg: rgb(255 255 255);
+
+    color: var(--_preview-color);
+    background: var(--_preview-bg);
+}

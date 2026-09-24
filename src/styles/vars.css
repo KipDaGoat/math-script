@@ -1,0 +1,43 @@
+:root {
+    --clr-bg-100: hsl(220 12% 5%);
+    --clr-bg-200: hsl(220 12% 10%);
+    --clr-bg-300: hsl(220 12% 15%);
+    --clr-bg-400: hsl(220 12% 20%);
+    --clr-bg-500: hsl(220 12% 25%);
+    --clr-bg-600: hsl(220 12% 30%);
+    --clr-bg-700: hsl(220 12% 35%);
+    --clr-bg-800: hsl(220 12% 40%);
+    --clr-bg-900: hsl(220 12% 55%);
+
+    --clr-text: hsl(220 15% 95%);
+    --clr-text-muted: hsl(220 15% 70%);
+
+    --clr-math-primary: hsl(230 80% 60%);
+    --clr-math-marker: hsl(0 0% 50%);
+
+    --sp-xxxs: 0.0625rem;
+    --sp-xxs: 0.125rem;
+    --sp-xs: 0.25rem;
+    --sp-s: 0.5rem;
+    --sp-m: 1rem;
+    --sp-l: 2rem;
+    --sp-xl: 4rem;
+    --sp-xxl: 8rem;
+    --sp-xxxl: 16rem;
+
+    --ff-default: "Commissioner";
+    --ff-code: "Google Sans Code";
+    --ff-math: "KaTeX_Main";
+
+    --fw-thin: 100;
+    --fw-extralight: 200;
+    --fw-light: 300;
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-extrabold: 800;
+    --fw-black: 900;
+
+    --fs-m: 1rem;
+}

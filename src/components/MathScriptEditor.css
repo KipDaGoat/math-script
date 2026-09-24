@@ -1,0 +1,12 @@
+.c-math-script-editor {
+    background: transparent;
+    resize: none;
+    height: 100svh;
+    width: 100%;
+    color: var(--clr-text);
+    font-size: var(--fs-m);
+    font-family: var(--ff-code);
+    caret-color: var(--clr-text);
+    padding: var(--sp-xs);
+    line-height: calc(1em + 2px);
+}

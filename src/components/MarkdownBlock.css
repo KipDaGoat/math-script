@@ -1,0 +1,90 @@
+.markdown-section > * + * {
+    margin-top: 0.5em;
+}
+.markdown-paragraph {
+    font-family: var(--ff-math), monospace;
+    line-height: 1.2;
+}
+
+.markdown-link {
+    color: var(--clr-math-primary);
+    text-decoration: underline 1.5px;
+}
+
+.markdown-bold {
+    font-weight: var(--fw-bold);
+}
+
+.markdown-italic {
+    font-style: italic;
+}
+
+.markdown-ordered-list {
+    list-style: none;
+    counter-reset: --ol-item;
+
+    li {
+        counter-increment: --ol-item;
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: var(--sp-xs);
+
+        &::before {
+            content: counter(--ol-item) ".";
+            color: var(--clr-math-marker);
+        }
+    }
+}
+
+.markdown-unordered-list {
+    list-style: disc;
+    padding-left: 1em;
+
+    li::marker {
+        color: var(--clr-math-marker);
+    }
+}
+
+.markdown-heading-1,
+.markdown-heading-2,
+.markdown-heading-3,
+.markdown-heading-4,
+.markdown-heading-5,
+.markdown-heading-6 {
+    letter-spacing: 0.015em;
+    font-weight: var(--fw-semibold);
+}
+
+.markdown-heading-1 {
+    font-size: 2rem;
+}
+
+.markdown-heading-2 {
+    font-size: 1.35rem;
+}
+
+.markdown-heading-3 {
+    font-size: 1.2rem;
+}
+
+.markdown-heading-4 {
+    font-size: 1.2rem;
+}
+
+.markdown-heading-5 {
+    font-size: 1.2rem;
+}
+
+.markdown-heading-6 {
+    font-size: 1.2rem;
+}
+
+.markdown-table {
+    border-collapse: collapse;
+
+    td,
+    th {
+        border: 1px solid rgb(128 128 128);
+        padding: 0.125em 0.5em;
+    }
+}
