@@ -7,6 +7,7 @@
     { "latex": "\\notin", "mathScript": "!in", "isCompact": false },
     { "latex": "\\forall", "mathScript": "forall", "isCompact": false },
     { "latex": "\\exists", "mathScript": "exists", "isCompact": false },
+    { "latex": "\\nexists", "mathScript": "!exists", "isCompact": false },
     { "latex": "\\leq", "mathScript": "=<", "isCompact": false },
     { "latex": "\\geq", "mathScript": ">=", "isCompact": false },
     { "latex": "\\neq", "mathScript": "<>", "isCompact": false },
@@ -29,16 +30,8 @@
     { "latex": "\\Longrightarrow", "mathScript": "==>", "isCompact": false },
     { "latex": "\\leftrightarrow", "mathScript": "<-->", "isCompact": false },
     { "latex": "\\Leftrightarrow", "mathScript": "<==>", "isCompact": false },
-    {
-        "latex": "\\longleftrightarrow",
-        "mathScript": "<--->",
-        "isCompact": false
-    },
-    {
-        "latex": "\\Longleftrightarrow",
-        "mathScript": "<===>",
-        "isCompact": false
-    },
+    { "latex": "\\longleftrightarrow", "mathScript": "<--->", "isCompact": false },
+    { "latex": "\\Longleftrightarrow", "mathScript": "<===>", "isCompact": false },
     { "latex": "^", "mathScript": "^", "isCompact": false },
     { "latex": "_", "mathScript": "_", "isCompact": false },
     { "latex": "\\Alpha", "mathScript": "Alpha", "isCompact": false },
@@ -104,5 +97,6 @@
     { "latex": "\\arccos", "mathScript": "arccos", "isCompact": false },
     { "latex": "°", "mathScript": "°", "isCompact": false },
     { "latex": "\\land", "mathScript": "and", "isCompact": false },
-    { "latex": "\\lor", "mathScript": "or", "isCompact": false }
+    { "latex": "\\lor", "mathScript": "or", "isCompact": false },
+    { "latex": "!", "mathScript": "!", "isCompact": false }
 ]

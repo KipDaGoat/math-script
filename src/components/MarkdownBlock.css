@@ -1,9 +1,12 @@
+.markdown-section {
+    font-family: var(--ff-math), monospace;
+}
 .markdown-section > * + * {
     margin-top: 0.5em;
 }
 .markdown-paragraph {
-    font-family: var(--ff-math), monospace;
     line-height: 1.2;
+    font-size: var(--fs-m);
 }
 
 .markdown-link {
@@ -53,6 +56,7 @@
 .markdown-heading-6 {
     letter-spacing: 0.015em;
     font-weight: var(--fw-semibold);
+    font-family: inherit;
 }
 
 .markdown-heading-1 {
@@ -87,4 +91,23 @@
         border: 1px solid rgb(128 128 128);
         padding: 0.125em 0.5em;
     }
+}
+
+.markdown-blockquote {
+    border-left: 3px solid var(--clr-math-primary);
+    padding-left: calc(var(--sp-s) + var(--sp-xs));
+}
+
+.markdown-code {
+    background: hsl(220 10% 20%);
+    padding-inline: 0.15em;
+    border-radius: 2px;
+    color: rgb(255 255 255);
+}
+
+pre > div {
+    background: hsl(220 10% 20%) !important;
+}
+pre > div > code {
+    background: transparent !important;
 }

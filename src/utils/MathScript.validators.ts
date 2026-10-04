@@ -20,12 +20,8 @@ export function partIsFunction(part: string): boolean {
 export function partIsVariable(part: string): boolean {
     return (
         (LETTER_REGEX.test(part) && part.length === 1) ||
-        (part.length >= 2 &&
-            part[0] === "$" &&
-            LETTER_REGEX.test(part.slice(1))) ||
-        (part.length >= 2 &&
-            part[0] === "-" &&
-            LETTER_REGEX.test(part.slice(1)))
+        (part.length >= 2 && part[0] === "$" && LETTER_REGEX.test(part.slice(1))) ||
+        (part.length >= 2 && part[0] === "-" && LETTER_REGEX.test(part.slice(1)))
     )
 }
 
@@ -41,12 +37,8 @@ export function partIsSimpleFraction(part: string): boolean {
     const splitPart = part.split("/")
     return (
         splitPart.length === 2 &&
-        (partIsFloat(splitPart[0]) ||
-            partIsVariable(splitPart[0]) ||
-            partIsFloatVariable(splitPart[0])) &&
-        (partIsFloat(splitPart[1]) ||
-            partIsVariable(splitPart[1]) ||
-            partIsFloatVariable(splitPart[1]))
+        (partIsFloat(splitPart[0]) || partIsVariable(splitPart[0]) || partIsFloatVariable(splitPart[0])) &&
+        (partIsFloat(splitPart[1]) || partIsVariable(splitPart[1]) || partIsFloatVariable(splitPart[1]))
     )
 }
 

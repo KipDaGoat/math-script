@@ -3,13 +3,14 @@ import remarkGfm from "remark-gfm"
 import "./MarkdownBlock.css"
 import { Prism } from "react-syntax-highlighter"
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import remarkInlineMathFormatter from "../utils/remarkInlineMathFormatter"
+import { InlineMath } from "react-katex"
+import MathScript from "../utils/MathScript"
 
 type MarkdownBlockProps = { content: string }
 
 const COMPONENTS: Components = {
-    a: ({ href, ...props }) => (
-        <a {...props} className="markdown-link" href={href} />
-    ),
+    a: ({ href, ...props }) => <a {...props} className="markdown-link" href={href} />,
     p: props => <p {...props} className="markdown-paragraph" />,
     em: props => <em {...props} className="markdown-italic" />,
     strong: props => <strong {...props} className="markdown-bold" />,
@@ -26,27 +27,27 @@ const COMPONENTS: Components = {
         const match = /language-(\w+)/.exec(className ?? "")
         if (match)
             return (
-                <Prism
-                    style={oneDark}
-                    language={className?.split("-").at(-1)}
-                    PreTag="div">
+                <Prism style={oneDark} language={className?.split("-").at(-1)} PreTag="div">
                     {String(children).replace(/\n$/, "")}
                 </Prism>
             )
         return (
-            <code {...props} className={className}>
+            <code {...props} className={`markdown-code ${className ?? ""}`}>
                 {children}
             </code>
         )
+    },
+    blockquote: props => <blockquote {...props} className="markdown-blockquote" />,
+    mark: ({ className, children }) => {
+        if (className === "markdown-inline-math")
+            return <InlineMath math={new MathScript(children as string).latex[0].content} />
     }
 }
 
-export default function MarkdownBlock({
-    content
-}: MarkdownBlockProps): React.JSX.Element {
+export default function MarkdownBlock({ content }: MarkdownBlockProps): React.JSX.Element {
     return (
         <section className="markdown-section">
-            <ReactMardown remarkPlugins={[remarkGfm]} components={COMPONENTS}>
+            <ReactMardown remarkPlugins={[remarkGfm, remarkInlineMathFormatter]} components={COMPONENTS}>
                 {content}
             </ReactMardown>
         </section>
