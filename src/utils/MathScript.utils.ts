@@ -1,6 +1,5 @@
-import MathScript from "./MathScript"
-import { FORMATTERS, FUNCTIONS, SYMBOLS } from "./MathScript.consts"
-import type { CompiledLatex, MathScriptObject, MathScriptObjectType, MathScriptSection } from "./MathScript.types"
+import { FUNCTIONS, SYMBOLS } from "./MathScript.consts"
+import type { MathScriptObject, MathScriptObjectType } from "./MathScript.types"
 import {
     partIsFloat,
     partIsFloatVariable,
@@ -12,21 +11,9 @@ import {
     partIsVariable
 } from "./MathScript.validators"
 
-export function compileMathScript(mathScript: string): MathScriptSection[] {
-    const sections = mathScript.split(`\n${FORMATTERS.MATH_BLOCK_SEPERATOR}\n`)
-    const startsWithMath =
-        mathScript.slice(0, FORMATTERS.MATH_BLOCK_SEPERATOR.length + 1) === FORMATTERS.MATH_BLOCK_SEPERATOR + "\n"
-
-    return sections.map<MathScriptSection>((section, index) => {
-        if ((index % 2 === 0 && !startsWithMath) || (index % 2 !== 0 && startsWithMath))
-            return { type: "markdown", content: section }
-
-        if (startsWithMath && index === 0) section = section.slice(FORMATTERS.MATH_BLOCK_SEPERATOR.length + 1)
-        const lines = section.split(FORMATTERS.LINE_BREAK)
-        const compiledLines = lines.map<MathScriptObject[]>(line => compileMathScriptLine(line))
-
-        return { type: "mathscript", content: compiledLines }
-    })
+export function compileMathScript(mathScript: string): MathScriptObject[][] {
+    const lines = mathScript.split("\n")
+    return lines.map<MathScriptObject[]>(line => compileMathScriptLine(line))
 }
 
 export function getLatex(obj: MathScriptObject): string {
@@ -39,21 +26,18 @@ export function getLatex(obj: MathScriptObject): string {
         case "set":
             return `\\mathbb{${obj.content.slice(1)}}`
         case "symbol":
-            return (
-                SYMBOLS.find(symbol => symbol.mathScript === obj.content)?.latex ??
-                `\\textcolor{red}{${JSON.stringify(obj.content)}}`
-            )
+            return SYMBOLS.find(symbol => symbol.mathScript === obj.content)?.latex ?? latexError(obj.content)
         case "text":
             return `\\text{${obj.content}}`
         case "simple-fraction":
             const [numerator, denominator] = obj.content.split("/")
             return `\\frac{${numerator}}{${denominator}}`
-        case "function": // NOT DONE!!!
+        case "function":
             return getLatexFromCommand(obj.content)
         case "param-seperator":
             return ""
         case "error":
-            return ""
+            return latexError(obj.content)
         default:
             throw new Error(`Unexpected case "${obj.type satisfies never}"`)
     }
@@ -123,7 +107,7 @@ export function compileMathScriptLine(lineStr: string): MathScriptObject[] {
 }
 
 export function latexError(msg: string): string {
-    return `\\text{${msg}}`
+    return `\\textcolor{red}{\\text{${msg}}}`
 }
 
 function getLatexFromCommand(cmdStr: string): string {

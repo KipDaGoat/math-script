@@ -1,23 +1,23 @@
-import type { CompiledLatex, MathScriptSection } from "./MathScript.types"
+import type { MathScriptObject } from "./MathScript.types"
 import { compileMathScript, getLatex } from "./MathScript.utils"
 
 export default class MathScript {
     public mathScript: string
-    public compiled: MathScriptSection[]
+    public readonly compiled: MathScriptObject[][]
 
     public constructor(mathScript: string) {
         this.mathScript = mathScript
         this.compiled = compileMathScript(mathScript)
     }
 
-    public get latex(): CompiledLatex[] {
-        return this.compiled.map<CompiledLatex>(section => {
-            if (section.type === "markdown") return section
+    public get latex(): string {
+        return this.compiled
+            .map<string>(line => {
+                const latexParts = line.map<string>(part => getLatex(part))
 
-            const lines = section.content.map<string[]>(line => line.map<string>(part => getLatex(part)))
-
-            return { type: "latex", content: lines.map(line => line.join(" ")).join(" \\\\ ") }
-        })
+                return latexParts.join(" ")
+            })
+            .join(" \\\\ ")
     }
 
     public static getFromLatex(latex: string): MathScript {}

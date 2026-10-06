@@ -1,9 +1,3 @@
-export type CompiledLatex = { type: "markdown" | "latex"; content: string }
-
-export type MathScriptSection =
-    | { type: "markdown"; content: string }
-    | { type: "mathscript"; content: MathScriptObject[][] }
-
 export type MathScriptObject = { type: MathScriptObjectType; content: string }
 
 export type MathScriptObjectType =

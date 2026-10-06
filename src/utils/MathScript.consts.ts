@@ -2,9 +2,14 @@ import type { MathScriptFunctionDef, MathScriptSymbol } from "./MathScript.types
 import DATA_SYMBOLS from "../data/symbols.json"
 import { latexError } from "./MathScript.utils"
 
-export const FORMATTERS = { MATH_BLOCK_SEPERATOR: "$$$", LINE_BREAK: "\n" } as const
-
 export const SYMBOLS: readonly MathScriptSymbol[] = DATA_SYMBOLS
+
+export const REGEX = {
+    FLOAT: /^-?\d+(?:\.\d+)?$/,
+    FLOAT_VARIABLE: /^-?\d+(?:\.\d+)?[a-zA-Z]+$/,
+    FUNCTION: /^[a-zA-Z]+\{.*\}$/,
+    LETTER: /^[a-zA-Z]+$/
+} as const
 
 export const FUNCTIONS: readonly MathScriptFunctionDef[] = [
     {
@@ -44,6 +49,14 @@ export const FUNCTIONS: readonly MathScriptFunctionDef[] = [
         executable: params => {
             if (params.length > 1 || params[0].length > 2) return latexError('"sum" command must have one parameter')
             return `\\sum _ {${params[0][0] ?? ""}} ^ {${params[0][1] ?? ""}}`
+        }
+    },
+    {
+        names: ["l", "latex"],
+        executable: params => {
+            if (params.length !== 1 || params[0].length !== 1)
+                return latexError('"latex" command must have one parameter')
+            return params[0][0]
         }
     }
 ]

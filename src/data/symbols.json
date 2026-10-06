@@ -98,5 +98,13 @@
     { "latex": "°", "mathScript": "°", "isCompact": false },
     { "latex": "\\land", "mathScript": "and", "isCompact": false },
     { "latex": "\\lor", "mathScript": "or", "isCompact": false },
-    { "latex": "!", "mathScript": "!", "isCompact": false }
+    { "latex": "!", "mathScript": "!", "isCompact": false },
+    { "latex": "\\left (", "mathScript": "(", "isCompact": false },
+    { "latex": "\\right )", "mathScript": ")", "isCompact": false },
+    { "latex": "\\left [", "mathScript": "[", "isCompact": false },
+    { "latex": "\\right ]", "mathScript": "]", "isCompact": false },
+    { "latex": "\\right", "mathScript": "right", "isCompact": false },
+    { "latex": "\\left", "mathScript": "left", "isCompact": false },
+    { "latex": "\\infty", "mathScript": "infty", "isCompact": false },
+    { "latex": "\\infty", "mathScript": "infinity", "isCompact": false }
 ]

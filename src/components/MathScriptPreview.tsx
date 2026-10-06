@@ -1,37 +1,19 @@
 import { BlockMath } from "react-katex"
-import MathScript from "../utils/MathScript"
+import splitScriptSections from "../utils/splitScriptSections"
 import MarkdownBlock from "./MarkdownBlock"
 import "./MathScriptPreview.css"
+import MathScript from "../utils/MathScript"
+import { useEffect } from "react"
 
-type MathScriptPreviewProps = {
-    script: string
-} & React.ComponentProps<"article">
+type MathScriptPreviewProps = { script: string } & React.ComponentProps<"article">
 
-export default function MathScriptPreview({
-    script,
-    className,
-    ...props
-}: MathScriptPreviewProps): React.JSX.Element {
-    const key = crypto.randomUUID()
-
+export default function MathScriptPreview({ script, className, ...props }: MathScriptPreviewProps): React.JSX.Element {
     return (
-        <article
-            {...props}
-            className={`c-math-script-preview ${className ?? ""}`}>
-            {new MathScript(script).latex.map((section, index) => {
+        <article {...props} className={`c-math-script-preview ${className ?? ""}`}>
+            {splitScriptSections(script).map((section, index) => {
                 if (section.type === "markdown")
-                    return (
-                        <MarkdownBlock
-                            key={`${key}-${index}`}
-                            content={section.content}
-                        />
-                    )
-                return (
-                    <BlockMath
-                        key={`${key}-${index}`}
-                        math={`\\begin{align*}${section.content}\\end{align*}`}
-                    />
-                )
+                    return <MarkdownBlock key={`script-section-${index}`} content={section.content} />
+                return <BlockMath key={`script-section-${index}`} math={new MathScript(section.content).latex} />
             })}
         </article>
     )

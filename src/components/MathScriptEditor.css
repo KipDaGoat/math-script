@@ -1,12 +1,56 @@
 .c-math-script-editor {
-    background: transparent;
-    resize: none;
-    height: 100svh;
-    width: 100%;
-    color: var(--clr-text);
-    font-size: var(--fs-m);
-    font-family: var(--ff-code);
-    caret-color: var(--clr-text);
-    padding: var(--sp-xs);
-    line-height: calc(1em + 2px);
+    --_number: hsl(340 70% 50%);
+    --_variable: hsl(170 100% 30%);
+    --_symbol: hsl(272 100% 80%);
+    --_function: hsl(220 80% 45%);
+    --_text: var(--clr-text);
+
+    > ._textarea,
+    > ._display {
+        font-size: var(--fs-m);
+        font-family: var(--ff-code);
+        padding: var(--sp-xs);
+        line-height: calc(1em + 2px);
+    }
+    > ._textarea {
+        background: transparent;
+        resize: none;
+        height: 100svh;
+        width: 100%;
+        color: transparent;
+        caret-color: var(--clr-text);
+    }
+    > ._display {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        background: var(--clr-bg-200);
+    }
+    > ._display > ._line {
+        height: calc(1em + 2px);
+    }
+    > ._display > ._line > ._obj.__number {
+        color: var(--_number);
+    }
+    > ._display > ._line > ._obj.__variable,
+    > ._display > ._line > ._obj.__simple-fraction {
+        color: var(--_variable);
+        font-style: italic;
+    }
+    > ._display > ._line > ._obj.__set {
+        color: var(--_variable);
+    }
+    > ._display > ._line > ._obj.__symbol {
+        color: var(--_symbol);
+    }
+    > ._display > ._line > ._obj.__function {
+        color: var(--_function);
+    }
+    > ._display > ._line > ._obj.__error {
+        font-style: italic;
+        text-decoration: underline wavy rgb(255 0 0);
+    }
 }
