@@ -1,18 +1,124 @@
 *,
 ::after,
 ::before {
-    box-sizing: border-box;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--ff-default);
 }
 
 html {
-    scroll-behavior: smooth;
     font-size: 1em;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    color-scheme: dark;
 }
 
 body {
-    color: var(--clr-text);
-    background: var(--clr-bg-100);
     font-size: var(--fs-m);
+    background: var(--clr-bg-100);
+    color: var(--clr-text);
+    line-height: var(--line-height-m);
+    overflow-x: hidden;
+}
+
+button {
+    font-size: var(--fs-m);
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    color: var(--clr-text);
+}
+
+abbr {
+    font-weight: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    color: inherit;
+}
+
+address {
+    font-style: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+    font-weight: var(--fw-semibold);
+}
+h1 {
+    font-size: var(--fs-h1);
+}
+h2 {
+    font-size: var(--fs-h2);
+}
+h3 {
+    font-size: var(--fs-h3);
+}
+h4 {
+    font-size: var(--fs-h4);
+}
+h5,
+h6 {
+    font-size: var(--fs-l);
+}
+
+ul {
+    list-style: none;
+}
+
+img,
+svg {
+    width: 100%;
+}
+
+menu {
+    padding-left: var(--sp-xxl);
+}
+
+font {
+    font-size: inherit;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+output {
+    font-size: inherit;
+    color: inherit;
+}
+
+data {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+address {
+    font-style: normal;
+}
+
+small {
+    font-size: var(--fs-s);
+}
+
+::selection {
+    background-color: var(--clr-secondary-500);
+    color: var(--clr-bright);
+}
+
+strong {
+    font-size: inherit;
+    color: var(--clr-primary-500);
+    font-weight: var(--fw-bold);
 }

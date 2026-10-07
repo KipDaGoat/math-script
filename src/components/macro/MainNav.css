@@ -1,0 +1,20 @@
+.c-main-nav {
+    background: var(--clr-bg-200);
+    padding: var(--sp-m) var(--sp-l);
+
+    > ._list {
+        display: flex;
+        gap: var(--sp-l);
+    }
+    > ._list > ._item > ._link {
+        font-size: var(--fs-l);
+        font-weight: var(--fw-semibold);
+        letter-spacing: var(--letter-spacing-xl);
+        color: var(--clr-text);
+
+        &[aria-current="page"] {
+            color: var(--clr-text-muted);
+            text-decoration: none;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 .markdown-section {
-    font-family: var(--ff-math), monospace;
+    font-family: var(--ff-default), monospace;
 }
 .markdown-section > * + * {
     margin-top: 0.5em;
@@ -34,7 +34,7 @@
 
         &::before {
             content: counter(--ol-item) ".";
-            color: var(--clr-math-marker);
+            color: hsl(0 0% 50%);
         }
     }
 }
@@ -44,7 +44,7 @@
     padding-left: 1em;
 
     li::marker {
-        color: var(--clr-math-marker);
+        color: hsl(0 0% 50%);
     }
 }
 
@@ -94,7 +94,7 @@
 }
 
 .markdown-blockquote {
-    border-left: 3px solid var(--clr-math-primary);
+    border-left: 3px solid hsl(230 80% 60%);
     padding-left: calc(var(--sp-s) + var(--sp-xs));
 }
 

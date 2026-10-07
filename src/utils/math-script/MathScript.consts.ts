@@ -1,5 +1,5 @@
 import type { MathScriptFunctionDef, MathScriptSymbol } from "./MathScript.types"
-import DATA_SYMBOLS from "../data/symbols.json"
+import DATA_SYMBOLS from "../../data/symbols.json"
 import { latexError } from "./MathScript.utils"
 
 export const SYMBOLS: readonly MathScriptSymbol[] = DATA_SYMBOLS

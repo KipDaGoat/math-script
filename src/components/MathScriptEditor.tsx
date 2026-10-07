@@ -1,7 +1,6 @@
 import { useRef } from "react"
 import "./MathScriptEditor.css"
-import type { MathScriptObject } from "../utils/MathScript.types"
-import MathScript from "../utils/MathScript"
+import type { MathScriptObject } from "../utils/math-script/MathScript.types"
 
 type MathScriptEditorProps = {
     script: string

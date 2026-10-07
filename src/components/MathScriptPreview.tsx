@@ -2,8 +2,7 @@ import { BlockMath } from "react-katex"
 import splitScriptSections from "../utils/splitScriptSections"
 import MarkdownBlock from "./MarkdownBlock"
 import "./MathScriptPreview.css"
-import MathScript from "../utils/MathScript"
-import { useEffect } from "react"
+import MathScript from "../utils/math-script/MathScript"
 
 type MathScriptPreviewProps = { script: string } & React.ComponentProps<"article">
 

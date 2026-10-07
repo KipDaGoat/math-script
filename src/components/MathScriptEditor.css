@@ -5,10 +5,14 @@
     --_function: hsl(220 80% 45%);
     --_text: var(--clr-text);
 
+    position: relative;
+
+    * {
+        font-family: var(--ff-code);
+    }
     > ._textarea,
     > ._display {
         font-size: var(--fs-m);
-        font-family: var(--ff-code);
         padding: var(--sp-xs);
         line-height: calc(1em + 2px);
     }
