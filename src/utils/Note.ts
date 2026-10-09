@@ -1,15 +1,40 @@
 import splitScriptSections from "./splitScriptSections"
 
+export type SimplifiedNote = { createdAt: string; lastEditedAt: string; content: string; tagIds: string[] }
+
 const TITLE_REGEX: Readonly<RegExp> = /^\s*#\s+[A-Za-z0-9]+.*$/
 const CAPTURE_TITLE_REGEX: Readonly<RegExp> = /^\s*#\s+([A-Za-z0-9].*)$/
 
 export default class Note {
+    public readonly createdAt: Temporal.PlainDateTime
+    private lastEditedAt: Temporal.PlainDateTime
+    private content: string
+    public tagIds: string[]
+
     public constructor(
-        public content: string,
-        public tagIds: string[],
-        public createdAt: Temporal.PlainDateTime,
-        public lastEditedAt: Temporal.PlainDateTime
-    ) {}
+        content?: string,
+        tagIds?: string[],
+        createdAt?: Temporal.PlainDateTime,
+        lastEditedAt?: Temporal.PlainDateTime
+    ) {
+        this.content = content ?? ""
+        this.createdAt = createdAt ?? Temporal.Now.plainDateTimeISO()
+        this.lastEditedAt = lastEditedAt ?? Temporal.Now.plainDateTimeISO()
+        this.tagIds = tagIds ?? []
+    }
+
+    public setContent(content: string): void {
+        this.content = content
+        this.lastEditedAt = Temporal.Now.plainDateTimeISO()
+    }
+
+    public getContent(): string {
+        return this.content
+    }
+
+    public getLastEditedAt(): Temporal.PlainDateTime {
+        return this.lastEditedAt
+    }
 
     public get title(): string {
         const sections = splitScriptSections(this.content)
@@ -20,5 +45,23 @@ export default class Note {
         if (titleLine == null) return "Untitled"
 
         return titleLine.match(CAPTURE_TITLE_REGEX)![0]
+    }
+
+    public simplifyNote(): SimplifiedNote {
+        return {
+            createdAt: this.createdAt.toString(),
+            lastEditedAt: this.lastEditedAt.toString(),
+            content: this.content,
+            tagIds: this.tagIds
+        }
+    }
+
+    public static parse({ content, createdAt, lastEditedAt, tagIds }: SimplifiedNote): Note {
+        return new Note(
+            content,
+            tagIds,
+            Temporal.PlainDateTime.from(createdAt),
+            Temporal.PlainDateTime.from(lastEditedAt)
+        )
     }
 }

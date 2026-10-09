@@ -4,7 +4,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--ff-default);
 }
 
 html {
@@ -20,6 +19,7 @@ body {
     color: var(--clr-text);
     line-height: var(--line-height-m);
     overflow-x: hidden;
+    font-family: var(--ff-default);
 }
 
 button {

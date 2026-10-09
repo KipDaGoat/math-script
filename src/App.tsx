@@ -1,33 +1,22 @@
-import { useDeferredValue } from "react"
-import MathScriptPreview from "./components/MathScriptPreview"
-import MathScriptEditor from "./components/MathScriptEditor"
-import "./App.css"
-import useLocalStorage from "./hooks/useLocalStorage"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Notes from "./pages/Notes"
 import MainNav from "./components/macro/MainNav"
 import { NotesProvider } from "./context/NotesContext"
+import EditNote from "./pages/EditNote"
 
 export default function App(): React.JSX.Element {
-    const [script, setScript] = useLocalStorage("MATH_SCRIPT", "")
-    const deferredScript = useDeferredValue(script)
-
     return (
         <BrowserRouter>
             <MainNav />
             <NotesProvider>
                 <Routes>
                     <Route path="/" element={<Notes />} />
+                    <Route path="/notes/:id">
+                        <Route index element={<h1>Read</h1>} />
+                        <Route path="edit" element={<EditNote />} />
+                    </Route>
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
-                <main className="APP">
-                    <section className="APP__section">
-                        <MathScriptEditor script={script} setScript={setScript} />
-                    </section>
-                    <section className="APP__section">
-                        <MathScriptPreview script={deferredScript} />
-                    </section>
-                </main>
             </NotesProvider>
         </BrowserRouter>
     )
