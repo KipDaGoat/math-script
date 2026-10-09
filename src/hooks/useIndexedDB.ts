@@ -1,8 +1,8 @@
-import { useEffect, useReducer } from "react"
+import { useEffect, useReducer, useRef } from "react"
 
-type Entry<T> = { id: string; data: T }
+export type Entry<T> = { id: string; data: T }
 
-type DataReducerArgs<T> =
+export type DataReducerArgs<T> =
     | { operation: "add"; newData: T }
     | { operation: "update"; newData: Entry<T> }
     | { operation: "delete"; id: string }
@@ -10,6 +10,7 @@ type DataReducerArgs<T> =
 
 export default function useIndexedDB<T>(tableName: string = "storage", dbName: string = "app-db") {
     const [data, setData] = useReducer((prev: Entry<T>[], args: DataReducerArgs<T>) => dataReducer<T>(prev, args), [])
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
         const request = openDB(dbName, tableName)
@@ -19,16 +20,18 @@ export default function useIndexedDB<T>(tableName: string = "storage", dbName: s
             const table = transaction.objectStore(tableName)
 
             const entriesRequest = table.getAll()
-            entriesRequest.onsuccess = () => {
-                const allEntries: Entry<T>[] = entriesRequest.result
-                setData({ operation: "set", data: allEntries })
-            }
+            entriesRequest.onsuccess = () => setData({ operation: "set", data: entriesRequest.result })
 
             transaction.oncomplete = () => db.close()
         }
     }, [])
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false
+            return
+        }
+
         const request = openDB(dbName, tableName)
         request.onsuccess = () => {
             const db = request.result
@@ -37,9 +40,14 @@ export default function useIndexedDB<T>(tableName: string = "storage", dbName: s
 
             const entriesRequest = table.getAll()
             entriesRequest.onsuccess = () => {
+                if (data.length === 0) return
+
                 const allEntries: Entry<T>[] = entriesRequest.result
 
-                data.forEach(stateEntry => table.put(stateEntry))
+                data.forEach(stateEntry => {
+                    if (!allEntries.some(dbEntry => dbEntry.id === stateEntry.id)) table.add(stateEntry)
+                    else table.put(stateEntry)
+                })
 
                 const deletedEntries = allEntries.filter(
                     dbEntry => !data.some(stateEntry => dbEntry.id === stateEntry.id)
@@ -48,7 +56,6 @@ export default function useIndexedDB<T>(tableName: string = "storage", dbName: s
             }
 
             transaction.oncomplete = () => db.close()
-            console.table(data)
         }
     }, [data])
 
