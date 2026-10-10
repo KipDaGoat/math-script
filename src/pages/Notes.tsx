@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import NotesContext from "../context/NotesContext"
 import Button from "../components/micro/Button"
 import Note from "../utils/Note"
+import NotePreview from "../components/NotePreview"
 
 export default function Notes(): React.JSX.Element {
     const { getAllNotes, addNote } = useContext(NotesContext)!
@@ -20,9 +21,11 @@ export default function Notes(): React.JSX.Element {
             >
                 Add Note
             </Button>
-            {getAllNotes().map(note => (
-                <Button variant="primary">{note.data.title}</Button>
-            ))}
+            <section style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
+                {getAllNotes().map(entry => (
+                    <NotePreview note={entry.data} id={entry.id} />
+                ))}
+            </section>
         </main>
     )
 }

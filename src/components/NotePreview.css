@@ -1,0 +1,6 @@
+.c-note-preview {
+    ._truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

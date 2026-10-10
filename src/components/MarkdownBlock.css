@@ -1,5 +1,5 @@
 .markdown-section {
-    font-family: var(--ff-default), monospace;
+    font-family: var(--ff-markdown), monospace;
 }
 .markdown-section > * + * {
     margin-top: 0.5em;

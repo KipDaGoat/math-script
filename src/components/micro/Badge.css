@@ -1,0 +1,60 @@
+.c-badge {
+    --_bg-color: var(--clr-text);
+    --_text-color: hsl(from var(--clr-text) h s calc(1 - l));
+    --_padding: calc(var(--sp-xxs) + var(--sp-xxxs));
+    --_fs: var(--fs-mini);
+
+    display: flex;
+    width: fit-content;
+    border-radius: 100vmax;
+    background: var(--_bg-color);
+    color: var(--_text-color);
+    font-size: var(--_fs);
+    line-height: var(--line-height-s);
+    padding: var(--_padding) calc(3 * var(--_padding));
+    letter-spacing: var(--letter-spacing-l);
+    align-items: center;
+    gap: calc(var(--_padding) / 2);
+
+    &[data-variant="weak"] {
+        --_bg-color: var(--clr-bg-500);
+        --_text-color: var(--clr-text);
+    }
+    &[data-variant="primary"] {
+        --_bg-color: hsl(from var(--clr-primary-500) h s l / 0.5);
+        --_text-color: hsl(from var(--clr-primary-500) h s 75%);
+    }
+    &[data-variant="secondary"] {
+        --_bg-color: hsl(from var(--clr-secondary-500) h s l / 0.5);
+        --_text-color: hsl(from var(--clr-secondary-500) h s 75%);
+    }
+    &[data-variant="outline"] {
+        --_bg-color: transparent;
+        --_text-color: var(--clr-text);
+
+        outline: 1px solid var(--clr-border);
+    }
+    &[data-variant="ghost"] {
+        --_bg-color: transparent;
+        --_text-color: var(--clr-text);
+
+        transition: var(--transition-fast) ease;
+        transition-property: color, background-color;
+    }
+    &[data-variant="ghost"]:hover {
+        --_bg-color: hsl(from var(--clr-bright) h s l / 0.1);
+        --_text-color: var(--clr-text-muted);
+    }
+    &[data-size="s"] {
+        --_padding: var(--sp-xxs);
+        --_fs: var(--fs-mini);
+    }
+    &[data-size="l"] {
+        --_padding: var(--sp-xs);
+        --_fs: var(--fs-s);
+    }
+    > ._icon {
+        width: calc(var(--_fs) * var(--line-height-s));
+        height: calc(var(--_fs) * var(--line-height-s));
+    }
+}

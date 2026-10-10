@@ -4,6 +4,7 @@ export type SimplifiedNote = { createdAt: string; lastEditedAt: string; content:
 
 const TITLE_REGEX: Readonly<RegExp> = /^\s*#\s+[A-Za-z0-9]+.*$/
 const CAPTURE_TITLE_REGEX: Readonly<RegExp> = /^\s*#\s+([A-Za-z0-9].*)$/
+const TEXT_LINE_REGEX: Readonly<RegExp> = /^\s*\p{L}/v
 
 export default class Note {
     public readonly createdAt: Temporal.PlainDateTime
@@ -23,6 +24,25 @@ export default class Note {
         this.tagIds = tagIds ?? []
     }
 
+    public get title(): string {
+        const sections = splitScriptSections(this.content)
+        const markdownSections = sections.filter(section => section.type === "markdown")
+        const markdownLines = markdownSections.map(section => section.content.split("\n")).flat()
+        const titleLine = markdownLines.find(line => TITLE_REGEX.test(line))
+
+        if (titleLine == null) return "Untitled"
+
+        return titleLine.match(CAPTURE_TITLE_REGEX)![1]
+    }
+
+    public get firstParagraph(): string | null {
+        const sections = splitScriptSections(this.content)
+        const markdownSections = sections.filter(section => section.type === "markdown")
+        const markdownLines = markdownSections.map(section => section.content.split("\n")).flat()
+
+        return markdownLines.find(line => /^\s*[A-Za-z]/.test(line)) ?? null
+    }
+
     public setContent(content: string): void {
         this.content = content
         this.lastEditedAt = Temporal.Now.plainDateTimeISO()
@@ -34,17 +54,6 @@ export default class Note {
 
     public getLastEditedAt(): Temporal.PlainDateTime {
         return this.lastEditedAt
-    }
-
-    public get title(): string {
-        const sections = splitScriptSections(this.content)
-        const markdownSections = sections.filter(section => section.type === "markdown")
-        const markdownLines = markdownSections.map(section => section.content.split("\n")).flat()
-        const titleLine = markdownLines.find(line => TITLE_REGEX.test(line))
-
-        if (titleLine == null) return "Untitled"
-
-        return titleLine.match(CAPTURE_TITLE_REGEX)![0]
     }
 
     public simplifyNote(): SimplifiedNote {
